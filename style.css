@@ -1,440 +1,138 @@
-/* Importation de la police Google Font */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-
-/* --- Variables CSS pour une personnalisation facile --- */
+/* RESET ET BASE */
 :root {
-    --primary-color: #2c3e50;       /* Bleu nuit profond */
-    --secondary-color: #3498db;     /* Bleu clair (Pierre de rivière) */
-    --light-bg: #ecf0f1;            /* Gris très clair (Nuages) */
-    --content-bg: #ffffff;          /* Blanc */
-    --text-color: #34495e;          /* Gris foncé (Asphalte mouillé) */
-    --light-text: #ffffff;          /* Blanc */
-    --correct-color: #2ecc71;       /* Vert (Émeraude) */
-    --incorrect-color: #e74c3c;     /* Rouge (Alizarine) */
-    --hover-color: #2980b9;         /* Bleu plus foncé (Trou de Belize) */
-    --border-color: #bdc3c7;        /* Gris clair (Argent) */
-    --border-radius: 5px;
-    --transition-speed: 0.3s;
-    --header-height: 70px;          /* Hauteur de la barre de navigation */
+    --primary: #4e54c8;
+    --secondary: #8f94fb;
+    --dark: #2c3e50;
+    --light: #f4f6f7;
+    --white: #ffffff;
+    --green: #2ecc71;
+    --red: #e74c3c;
+    --orange: #f39c12;
 }
 
-/* --- Réinitialisation et styles de base --- */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    height: 100%; /* Nécessaire pour le sticky footer flexbox */
-    scroll-behavior: smooth; /* Défilement doux pour les ancres # */
-}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
 body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: var(--light);
+    margin: 0;
+    height: 100vh;
+    overflow: hidden; /* Empêche le scroll global, on gère dans l'app */
     display: flex;
-    flex-direction: column; /* Organise les éléments en colonne */
-    min-height: 100vh; /* Hauteur minimale = hauteur de l'écran */
-    font-family: 'Poppins', sans-serif;
-    line-height: 1.7;
-    color: var(--text-color);
-    background-color: var(--light-bg);
-    padding-top: var(--header-height); /* Espace pour la barre de navigation fixe */
+    justify-content: center;
 }
 
-/* --- Barre de navigation --- */
-header {
-    background-color: var(--primary-color);
-    color: var(--light-text);
-    position: fixed;
-    top: 0;
-    left: 0;
+.app-container {
     width: 100%;
-    z-index: 1000;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-    height: var(--header-height);
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px; /* Légèrement plus large */
-    margin: auto;
-    padding: 0 25px;
+    max-width: 600px;
     height: 100%;
+    background: var(--white);
+    position: relative;
+    overflow-y: auto;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
 }
 
-.logo {
-    font-size: 1.6em;
-    font-weight: 700;
-    letter-spacing: 1px;
-}
-
-/* Style pour le lien du logo */
-.logo a {
-    color: inherit; /* Hérite la couleur du parent (.logo -> header -> blanc) */
-    text-decoration: none;
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-}
-
-.nav-links li {
-    margin-left: 25px;
-}
-
-.nav-links a {
-    color: var(--light-text);
-    text-decoration: none;
-    padding: 8px 15px;
-    border-radius: var(--border-radius);
-    font-weight: 400;
-    transition: background-color var(--transition-speed) ease, transform var(--transition-speed) ease;
-    display: inline-block; /* Pour permettre transform */
-}
-
-.nav-links a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    transform: translateY(-2px);
-}
-.nav-links a.active {
-     background-color: var(--secondary-color);
-     font-weight: 600;
-     box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
-}
-
-
-/* --- Contenu Principal --- */
-main {
-    flex-grow: 1; /* Permet à main de prendre l'espace disponible */
-    max-width: 1100px;
-    width: 90%; /* Responsive */
-    margin: 40px auto; /* Plus d'espace en haut/bas */
-    padding: 35px; /* Plus de padding interne */
-    background-color: var(--content-bg);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Ombre plus prononcée */
-    border-radius: 8px; /* Coins plus arrondis */
-}
-
-.content-section {
+/* GESTION DES ÉCRANS */
+.screen {
     display: none;
-    padding: 20px 0; /* Padding vertical seulement */
-    animation: fadeIn 0.6s ease-in-out;
-}
-
-.content-section.active-section {
-    display: block;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Styles titres */
-h1, h2, h3, h4, h5, h6 {
-    color: var(--primary-color); /* Utilise la couleur primaire pour les titres */
-    margin-bottom: 1.2em; /* Espace sous les titres */
-    font-weight: 600;
-}
-h1 { font-size: 2.2em; text-align: center; margin-bottom: 1.5em; }
-h2 { font-size: 1.8em; border-bottom: 2px solid var(--secondary-color); padding-bottom: 10px; }
-h3 { font-size: 1.5em; margin-top: 1.8em; }
-h4 { font-size: 1.3em; }
-h5 { font-size: 1.1em; font-weight: 600; color: #555; }
-h6 { font-size: 1em; font-weight: 400; font-style: italic; color: #666; }
-
-/* Style spécifique pour le contenu du cours */
-#droit article {
-    margin-top: 20px;
-    text-align: justify;
-}
-#droit article h3 { margin-top: 30px; border-bottom: 1px solid #eee; padding-bottom: 5px;}
-#droit article p { margin-bottom: 12px; }
-#droit article p strong { color: var(--primary-color); font-weight: 600;}
-#droit blockquote {
-    border-left: 4px solid var(--secondary-color);
-    margin: 15px 0 15px 20px;
-    padding: 10px 15px;
-    background-color: #f9f9f9;
-    font-style: italic;
-}
-#droit ul { margin-left: 20px; margin-bottom: 15px;}
-#droit li { margin-bottom: 5px; }
-
-
-/* --- Styles QCM améliorés --- */
-#qcm-container {
-    margin-top: 30px;
-}
-
-#question-container {
-    margin-bottom: 25px;
     padding: 20px;
-    background-color: #f7f9fc; /* Fond très léger */
-    border-left: 5px solid var(--secondary-color);
-    border-radius: var(--border-radius);
+    height: 100%;
+    flex-direction: column;
+    animation: fadeIn 0.3s ease;
 }
 
-#question-text {
-    font-size: 1.25em;
-    font-weight: 600;
-    color: var(--primary-color);
+.screen.active {
+    display: flex;
 }
 
-#answers-container button {
-    display: block;
-    width: 100%;
-    padding: 14px 20px; /* Plus de padding */
-    margin-bottom: 12px;
-    background-color: var(--content-bg);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    color: var(--text-color);
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* STYLES ACCUEIL */
+header { text-align: center; margin-bottom: 30px; margin-top: 20px; }
+h1 { color: var(--primary); margin: 0; }
+p { color: #7f8c8d; }
+
+.menu-buttons { display: flex; flex-direction: column; gap: 15px; }
+
+.mode-btn {
+    background: white;
+    border: 2px solid #e0e0e0;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+}
+
+.mode-btn:active { transform: scale(0.98); background: #f9f9f9; }
+.mode-btn .icon { font-size: 1.5rem; }
+.mode-btn strong { display: block; color: var(--dark); font-size: 1.1rem; }
+.mode-btn small { color: #95a5a6; }
+
+/* STYLES SPÉCIFIQUES MODES */
+.mode-btn.classic:hover { border-color: var(--primary); background: #f4f5ff; }
+.mode-btn.death:hover { border-color: var(--red); background: #fff5f5; }
+.mode-btn.timer:hover { border-color: var(--orange); background: #fffaf0; }
+
+/* QUIZ UI */
+.top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
+.timer-bar { height: 4px; width: 0%; background: var(--orange); position: absolute; top: 0; left: 0; transition: width 1s linear; }
+
+.stats { font-weight: bold; color: var(--dark); width: 100%; display: flex; justify-content: space-between; margin-top: 10px; }
+#mode-badge { background: var(--primary); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; text-transform: uppercase; }
+
+.question-card { flex-grow: 1; display: flex; flex-direction: column; }
+.tag { display: inline-block; background: #e0e0e0; color: #555; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; margin-bottom: 10px; align-self: flex-start; }
+h2 { font-size: 1.2rem; margin-top: 0; color: var(--dark); margin-bottom: 20px; }
+
+.options-grid { display: flex; flex-direction: column; gap: 10px; }
+
+.opt-btn {
+    padding: 18px;
+    border: 2px solid #ecf0f1;
+    background: white;
+    border-radius: 12px;
+    font-size: 1rem;
+    color: var(--dark);
     text-align: left;
     cursor: pointer;
-    font-size: 1em;
-    transition: all var(--transition-speed) ease; /* Transition générale */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: 0.2s;
+    font-weight: 500;
 }
 
-#answers-container button:hover:not(:disabled) {
-    background-color: var(--light-bg);
-    border-color: var(--secondary-color);
-    transform: translateX(8px); /* Indentation plus marquée */
-    box-shadow: 0 4px 8px rgba(41, 128, 185, 0.2); /* Ombre au survol */
-}
+.opt-btn.correct { background: #d4edda; border-color: var(--green); color: #155724; }
+.opt-btn.wrong { background: #f8d7da; border-color: var(--red); color: #721c24; }
+.opt-btn.disabled { pointer-events: none; opacity: 0.7; }
 
-#answers-container button.correct {
-    background-color: var(--correct-color);
-    border-color: #27ae60;
-    color: var(--light-text);
-    font-weight: 600;
-    transform: scale(1.02); /* Léger grossissement */
-}
-#answers-container button.incorrect {
-    background-color: var(--incorrect-color);
-    border-color: #c0392b;
-    color: var(--light-text);
-    font-weight: 600;
-}
-#answers-container button:disabled {
-    cursor: not-allowed;
-    opacity: 0.75; /* Légèrement plus visible */
-}
-
-/* Feedback amélioré */
-#feedback {
-    margin-top: 20px;
-    padding: 12px 15px;
-    border-radius: var(--border-radius);
-    font-weight: 600;
-    text-align: center;
-    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
-}
-#feedback.correct {
-    background-color: #e6f9ee;
-    color: #27ae60;
-    border: 1px solid var(--correct-color);
-}
-#feedback.incorrect {
-    background-color: #fdecea;
-    color: #c0392b;
-    border: 1px solid var(--incorrect-color);
-}
-
-/* Style général des boutons (pour homogénéité) */
-button, .button-style {
-    display: inline-block;
-    padding: 12px 25px;
-    background-color: var(--secondary-color);
-    color: var(--light-text);
-    border: none;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: 600;
-    text-align: center;
-    text-decoration: none;
-    transition: background-color var(--transition-speed) ease, transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
-    margin-top: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-button:hover, .button-style:hover {
-    background-color: var(--hover-color);
-    transform: translateY(-3px); /* Soulèvement plus marqué */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
-/* Bouton Suivant/Résultats */
-#next-button {
-    /* Hérite du style bouton */
-}
-
-/* Résultats */
-#results-container {
-    margin-top: 30px;
-    padding: 30px;
-    background-color: #f0f9ff; /* Bleu très clair */
-    border: 1px solid var(--secondary-color);
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.07);
-}
-#results-container h3 {
-    color: var(--primary-color);
-    margin-bottom: 20px;
-}
-#results-container p {
-    font-size: 1.2em;
-    margin-bottom: 25px;
-}
-#results-container span {
-    font-weight: 700;
-    color: var(--secondary-color);
-}
-#results-container button {
-    background-color: var(--primary-color); /* Bouton "Recommencer" plus sobre */
-}
-#results-container button:hover {
-    background-color: #3e5771; /* Version un peu plus claire du bleu nuit */
-}
-
-/* --- Footer (Sticky) --- */
-footer {
-    background-color: var(--primary-color);
-    color: rgba(255, 255, 255, 0.7);
-    padding: 25px 0;
-    text-align: center;
-    font-size: 0.9em;
-    width: 100%;
-    margin-top: auto; /* Crucial pour le sticky footer avec flexbox */
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.1); /* Ombre en haut du footer */
-}
-
-/* --- Burger Menu pour mobile --- */
-.burger {
+/* EXPLICATION */
+.explanation {
     display: none;
+    margin-top: 20px;
+    padding: 15px;
+    background: #e8f4fd;
+    border-left: 4px solid var(--primary);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    animation: fadeIn 0.3s;
+}
+
+#next-btn {
+    width: 100%;
+    background: var(--dark);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    margin-top: 15px;
     cursor: pointer;
-    padding: 10px; /* Zone cliquable plus grande */
-}
-.burger div {
-    width: 28px; /* Légèrement plus large */
-    height: 3px;
-    background-color: var(--light-text);
-    margin: 5px 0; /* Moins d'espace vertical */
-    transition: all 0.4s ease; /* Transition plus douce */
-    border-radius: 2px;
 }
 
-/* --- Responsive Design --- */
-@media (max-width: 768px) {
-    body {
-        padding-top: 60px; /* Hauteur navbar mobile */
-    }
-    header, nav {
-        height: 60px; /* Hauteur navbar mobile */
-    }
-    .logo { font-size: 1.4em; }
-
-    .nav-links {
-        position: fixed; /* Reste fixe même pendant le scroll */
-        right: 0;
-        top: 60px; /* Positionné sous la navbar */
-        height: calc(100vh - 60px); /* Prend toute la hauteur restante */
-        background-color: var(--primary-color);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start; /* Aligne les éléments en haut */
-        width: 70%; /* Largeur du menu déroulant */
-        max-width: 300px; /* Limite la largeur sur les "petites tablettes" */
-        transform: translateX(100%); /* Caché à droite par défaut */
-        padding-top: 40px;
-        box-shadow: -5px 0 15px rgba(0,0,0,0.2);
-        z-index: 999; /* Juste sous le header (qui est à 1000) */
-
-        /* --- Gestion de la visibilité et transition --- */
-        opacity: 0; /* Commence totalement transparent */
-        visibility: hidden; /* Commence caché et non interactif */
-        /* Appliquer la transition sur toutes les propriétés qui changent */
-        transition: transform 0.4s ease-out, opacity 0.4s ease-out, visibility 0.4s ease-out;
-    }
-
-    .nav-links.nav-active {
-        transform: translateX(0%); /* Le menu glisse en position visible */
-        opacity: 0.98; /* Devient (presque) opaque - la légère transparence peut être esthétique */
-        visibility: visible; /* Devient visible et interactif */
-    }
-
-    /* Style des éléments de liste dans le menu mobile */
-    .nav-links li {
-        margin-left: 0; /* Pas de marge à gauche */
-        width: 100%; /* Prend toute la largeur du conteneur .nav-links */
-        text-align: center;
-        margin-bottom: 10px; /* Espace entre les liens */
-        /* IMPORTANT : On ne met PAS opacity: 0; ici, la visibilité est gérée par le parent .nav-links */
-    }
-
-    /* Style des liens dans le menu mobile */
-    .nav-links li a {
-        display: block; /* Prend toute la largeur de li */
-        padding: 18px; /* Zone cliquable confortable */
-        width: 90%; /* Un peu de marge intérieure */
-        margin: 5px auto; /* Centrer et espacer verticalement */
-        font-size: 1.1em;
-        color: var(--light-text); /* Assurer que le texte est blanc */
-        text-decoration: none; /* Pas de soulignement */
-        border-radius: var(--border-radius);
-        transition: background-color var(--transition-speed) ease;
-    }
-     /* Style au survol/actif pour les liens mobiles */
-     .nav-links li a:hover, .nav-links li a.active {
-         background-color: var(--secondary-color);
-         transform: none; /* Pas d'effet de translation sur mobile */
-     }
-
-    /* Affichage et style du bouton Burger */
-    .burger {
-        display: block; /* Afficher le burger sur mobile */
-        z-index: 1001; /* S'assurer qu'il est au-dessus de tout */
-        position: relative; /* Nécessaire pour z-index */
-        cursor: pointer;
-        padding: 10px; /* Augmenter la zone cliquable */
-    }
-    .burger div { /* Style des lignes du burger */
-        width: 28px;
-        height: 3px;
-        background-color: var(--light-text);
-        margin: 5px 0;
-        transition: all 0.4s ease;
-        border-radius: 2px;
-    }
-
-    /* Animation de transformation du burger en croix */
-    .toggle .line1 {
-        transform: rotate(-45deg) translate(-6px, 6px);
-    }
-    .toggle .line2 {
-        opacity: 0;
-        transform: scale(0);
-    }
-    .toggle .line3 {
-        transform: rotate(45deg) translate(-6px, -7px);
-    }
-
-    /* Ajustements généraux pour la page sur mobile */
-    main {
-        padding: 20px 15px; /* Moins de padding horizontal */
-        width: 95%; /* Occupe presque toute la largeur */
-        margin: 20px auto; /* Marges verticales réduites */
-    }
-    h1 { font-size: 1.8em; } /* Titres plus petits */
-    h2 { font-size: 1.5em; }
-    /* Désactiver l'effet de décalage au survol des boutons QCM sur mobile */
-    #answers-container button:hover:not(:disabled) {
-        transform: none;
-    }
-}
+/* RESULTATS */
+.result-content { text-align: center; padding-top: 50px; }
+.emoji { font-size: 4rem; margin-bottom: 10px; }
+.final-score { font-size: 3rem; font-weight: bold; color: var(--primary); margin: 20px 0; }
+.restart-btn { background: var(--primary); color: white; border: none; padding: 15px 30px; border-radius: 30px; font-size: 1.1rem; cursor: pointer; box-shadow: 0 4px 15px rgba(78, 84, 200, 0.3); }
