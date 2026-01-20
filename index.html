@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Révisions Sociales - App</title>
+    <title>Révisions Sociales - App Complète</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div id="loader">
         <div class="spinner"></div>
-        <p>Chargement des fiches...</p>
+        <p>Chargement de l'app...</p>
     </div>
 
     <div id="burger-btn" onclick="toggleMenu()">☰</div>
@@ -21,22 +21,23 @@
             <span class="close-btn" onclick="toggleMenu()">×</span>
         </div>
         <ul class="menu-links">
-            <li onclick="goToHome()">🏠 Accueil Quiz</li>
-            <li onclick="window.location.href='revisions.html'">📄 Fiches de Révision</li>
+            <li onclick="goToHome()">🏠 Accueil</li>
+            <li onclick="window.location.href='revisions.html'">📄 Fiches de Cours</li>
             <li onclick="location.reload()">🔄 Recharger l'app</li>
         </ul>
         <div class="menu-footer">
-            Politiques Sociales v2.0
+            Version Finale 3.0
         </div>
     </div>
     <div id="menu-overlay" onclick="toggleMenu()"></div>
+
 
     <div class="app-container">
         
         <div id="home-screen" class="screen active">
             <header>
                 <h1>🎓 Révisions Sociales</h1>
-                <p>Prêt à valider tes connaissances ?</p>
+                <p>Choisis ton mode d'apprentissage</p>
                 
                 <div class="db-info">
                     <span class="badge-count">
@@ -49,8 +50,8 @@
                 <button onclick="startGame('classic')" class="mode-btn classic">
                     <span class="icon">📖</span>
                     <div class="text">
-                        <strong>Classique</strong>
-                        <small>Prends ton temps, révise tranquillement.</small>
+                        <strong>Quiz Classique</strong>
+                        <small>Prends ton temps, révise tout.</small>
                     </div>
                 </button>
 
@@ -70,11 +71,21 @@
                     </div>
                 </button>
                 
-                <button onclick="window.location.href='revisions.html'" class="mode-btn" style="border-color: #2c3e50;">
+                <hr style="width:100%; border:0; border-top:1px solid #eee; margin:10px 0;">
+
+                <button onclick="startFlashcards()" class="mode-btn" style="border-color: #9b59b6;">
+                    <span class="icon">🗂️</span>
+                    <div class="text">
+                        <strong>Mode Flashcards</strong>
+                        <small>Entraîne ta mémoire sans indices.</small>
+                    </div>
+                </button>
+
+                <button onclick="window.location.href='revisions.html'" class="mode-btn" style="border-color: #2c3e50; background-color:#f8f9fa;">
                     <span class="icon">📝</span>
                     <div class="text">
                         <strong>Lire le Cours</strong>
-                        <small>Accéder aux fiches résumées.</small>
+                        <small>Accéder aux fiches de synthèse.</small>
                     </div>
                 </button>
             </div>
@@ -93,13 +104,40 @@
                 <span id="category-tag" class="tag">Catégorie</span>
                 <h2 id="question-text">Question...</h2>
                 
-                <div id="options-container" class="options-grid"></div>
+                <div id="options-container" class="options-grid">
+                    </div>
 
                 <div id="explanation-box" class="explanation">
                     <strong>💡 Explication :</strong>
                     <p id="explanation-text">...</p>
                     <button id="next-btn" onclick="nextQuestion()">Question Suivante →</button>
                 </div>
+            </div>
+        </div>
+
+        <div id="flashcard-screen" class="screen">
+            <div class="top-bar">
+                <button onclick="goToHome()" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">⬅ Quitter</button>
+                <div class="stats" style="font-size:1rem;">Carte <span id="fc-count">1/10</span></div>
+            </div>
+
+            <div class="flashcard-container">
+                <div class="flashcard" onclick="flipCard(this)">
+                    <div class="front">
+                        <span class="tag" id="fc-tag" style="background:#666;">Thème</span>
+                        <h2 id="fc-question" style="margin-top:20px;">Question ?</h2>
+                        <p style="color:#aaa; font-size:0.8rem; position:absolute; bottom:20px;">(Touche la carte pour retourner)</p>
+                    </div>
+                    <div class="back">
+                        <h3 style="color:var(--primary); border-bottom:1px solid #ddd; padding-bottom:5px;">La Réponse :</h3>
+                        <p id="fc-answer" style="font-size:1.1rem; margin-top:15px;">Réponse...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fc-controls">
+                <button class="fc-btn bad" onclick="nextFlashcard()">❌ Je ne savais pas</button>
+                <button class="fc-btn good" onclick="nextFlashcard()">✅ Je savais !</button>
             </div>
         </div>
 
@@ -110,9 +148,9 @@
                 <div class="final-score" id="final-score">0/0</div>
                 <p id="result-msg">Bravo !</p>
                 
-                <div style="display:flex; flex-direction:column; gap:10px; margin-top:20px;">
-                    <button onclick="goToHome()" class="restart-btn">🏠 Retour au Menu</button>
-                    <button onclick="window.location.href='revisions.html'" class="restart-btn" style="background:#2c3e50;">📄 Voir les fiches</button>
+                <div style="display:flex; flex-direction:column; gap:10px; margin-top:30px; align-items:center;">
+                    <button onclick="goToHome()" class="restart-btn">🏠 Menu Principal</button>
+                    <button onclick="window.location.href='revisions.html'" class="restart-btn" style="background:#34495e;">📖 Aller réviser le cours</button>
                 </div>
             </div>
         </div>

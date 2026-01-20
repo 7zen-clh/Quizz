@@ -146,6 +146,54 @@ const DB = [
     {c:"DIVERS", q:"La PJJ (Protection Judiciaire de la Jeunesse) dépend du :", o:["Ministère de la Justice", "Département", "Ministère de la Santé", "Ministère de l'Intérieur"], a:0, e:"S'occupe des mineurs sous main de justice (délinquants)."}
 ];
 
+/* --- LOGIQUE FLASHCARDS --- */
+let fcIndex = 0;
+let fcList = [];
+
+function startFlashcards() {
+    // On mélange la DB pour créer une liste de cartes
+    fcList = shuffle([...DB]);
+    fcIndex = 0;
+    showScreen('flashcard-screen');
+    loadFlashcard();
+}
+
+function loadFlashcard() {
+    if (fcIndex >= fcList.length) {
+        alert("Session terminée ! Retour au menu.");
+        goToHome();
+        return;
+    }
+
+    const item = fcList[fcIndex];
+    const card = document.querySelector('.flashcard');
+    
+    // Remettre la carte du bon côté (face)
+    card.classList.remove('flipped');
+
+    // Attendre un peu que la carte se retourne avant de changer le texte
+    setTimeout(() => {
+        document.getElementById('fc-tag').innerText = item.c;
+        document.getElementById('fc-question').innerText = item.q;
+        
+        // Pour la réponse, on combine la bonne option + l'explication
+        // item.o[item.a] est le texte de la bonne réponse
+        const fullAnswer = `<strong>${item.o[item.a]}</strong><br><br>${item.e}`;
+        document.getElementById('fc-answer').innerHTML = fullAnswer;
+        
+        document.getElementById('fc-count').innerText = `${fcIndex + 1} / ${fcList.length}`;
+    }, 200);
+}
+
+function flipCard(card) {
+    card.classList.toggle('flipped');
+}
+
+function nextFlashcard() {
+    fcIndex++;
+    loadFlashcard();
+}
+
 /* --- INITIALISATION AU CHARGEMENT --- */
 window.onload = function() {
     // 1. Mise à jour du compteur de questions
