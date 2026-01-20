@@ -16,178 +16,188 @@
 
 body {
     font-family: 'Segoe UI', 'Roboto', Helvetica, Arial, sans-serif;
-    background-color: #eef2f5; /* Fond gris bleuté apaisant pour PC */
+    background-color: var(--light);
     margin: 0;
-    min-height: 100vh;
     color: var(--text);
-    /* Centrage pour PC */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /* SUR MOBILE : On laisse le flux normal (pas de flex centré qui écrase) */
+    display: block; 
 }
 
-/* --- 2. CONTAINER PRINCIPAL (LA "BOITE" DE L'APP) --- */
+/* --- 2. CONTAINER PRINCIPAL --- */
 .app-container {
     background: var(--white);
     width: 100%;
-    height: 100vh; /* Plein écran par défaut */
-    overflow-y: auto; /* Scroll à l'intérieur */
+    min-height: 100vh; /* Prend toute la hauteur */
     position: relative;
-    /* Optimisation PC */
-    max-width: 1200px; /* Beaucoup plus large sur PC */
+    overflow-x: hidden; /* Évite le scroll horizontal */
 }
 
-/* --- 3. ADAPTATION PC (Media Queries) --- */
+/* --- 3. ADAPTATION PC UNIQUEMENT (Media Queries) --- */
+/* Ces règles ne s'appliquent QUE si l'écran est plus large que 768px (Tablette/PC) */
 @media (min-width: 769px) {
     body {
-        padding: 40px; /* Espace autour sur PC */
+        /* Centrage de l'app au milieu de l'écran sur PC */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #eef2f5;
+        padding: 40px;
+        height: 100vh;
+        overflow: hidden;
     }
+
     .app-container {
-        height: 90vh; /* Ne colle pas aux bords */
-        border-radius: 20px; /* Coins arrondis jolis */
+        height: 90vh;
+        max-width: 1200px;
+        border-radius: 20px;
         box-shadow: var(--shadow);
-        border: 1px solid rgba(0,0,0,0.05);
-        display: flex; /* Pour gérer le layout interne */
+        overflow-y: auto; /* Scroll à l'intérieur de la boite */
+        display: flex;
         flex-direction: column;
     }
+
+    /* Grille uniquement sur PC */
+    .revision-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 25px;
+        padding: 40px !important;
+    }
     
-    /* Sur PC, les boutons du menu s'affichent en ligne */
     .menu-buttons {
         flex-direction: row !important;
         flex-wrap: wrap;
         justify-content: center;
     }
-    .mode-btn {
-        width: 300px; /* Boutons larges */
-    }
-
-    /* Grille pour les fiches de révision sur PC */
-    .revision-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Colonnes auto */
-        gap: 25px;
-        padding: 40px !important;
-    }
+    
+    .mode-btn { width: 300px; }
 }
 
 /* --- 4. NAVIGATION & HEADER --- */
-header { text-align: center; padding: 30px 20px 10px; }
-h1 { color: var(--primary); margin: 0; font-size: 2rem; letter-spacing: -0.5px; }
-header p { color: #666; font-size: 1.1rem; }
+header { text-align: center; padding: 20px; margin-top: 10px; }
+h1 { color: var(--primary); margin: 0; font-size: 1.8rem; }
+header p { color: #666; font-size: 1rem; margin-top: 5px; }
 
 /* Badge compteur */
 .db-info { margin-top: 15px; }
 .badge-count {
     background: #e8f4fd; color: var(--primary);
-    padding: 8px 16px; border-radius: 30px;
-    font-weight: 600; font-size: 0.95rem;
+    padding: 6px 12px; border-radius: 20px;
+    font-weight: 600; font-size: 0.85rem;
 }
 
 /* --- 5. MENU BURGER --- */
 #burger-btn {
-    position: absolute; top: 20px; left: 20px;
-    font-size: 1.8rem; cursor: pointer; z-index: 2000;
-    background: white; padding: 8px; border-radius: 50%;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    transition: transform 0.2s;
+    position: absolute; top: 15px; left: 15px;
+    font-size: 1.6rem; cursor: pointer; z-index: 2000;
+    background: rgba(255,255,255,0.9); padding: 8px; border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-#burger-btn:hover { transform: scale(1.1); }
 
 #side-menu {
-    position: fixed; top: 0; left: -300px;
-    width: 300px; height: 100%;
+    position: fixed; top: 0; left: -280px;
+    width: 280px; height: 100%;
     background: white; z-index: 2001;
-    box-shadow: 5px 0 15px rgba(0,0,0,0.05);
-    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+    transition: left 0.3s ease;
     display: flex; flex-direction: column;
 }
 #side-menu.open { left: 0; }
-.menu-header { background: var(--primary); color: white; padding: 25px; display: flex; justify-content: space-between; align-items: center; }
-.menu-links li { padding: 18px 25px; border-bottom: 1px solid #f0f0f0; cursor: pointer; font-size: 1.1rem; }
-.menu-links li:hover { background: #f9fbfd; color: var(--primary); padding-left: 30px; }
-#menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 2000; display: none; backdrop-filter: blur(2px); }
+.menu-header { background: var(--primary); color: white; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+.close-btn { font-size: 1.5rem; cursor: pointer; }
+.menu-links { list-style: none; padding: 0; margin: 0; }
+.menu-links li { padding: 15px 20px; border-bottom: 1px solid #f0f0f0; cursor: pointer; }
+#menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none; }
 #menu-overlay.show { display: block; }
 
 /* --- 6. ÉCRAN D'ACCUEIL --- */
-.screen { display: none; height: 100%; flex-direction: column; overflow-y: auto; }
+.screen { display: none; flex-direction: column; padding-bottom: 40px; }
 .screen.active { display: flex; }
-.menu-buttons { display: flex; flex-direction: column; gap: 15px; padding: 20px; max-width: 800px; margin: 0 auto; width: 100%; }
+
+.menu-buttons { display: flex; flex-direction: column; gap: 15px; padding: 20px; width: 100%; margin: 0 auto; max-width: 500px; }
 
 .mode-btn {
     background: white; border: 2px solid #eaeff2;
-    padding: 25px; border-radius: 16px;
-    display: flex; align-items: center; gap: 20px;
+    padding: 20px; border-radius: 12px;
+    display: flex; align-items: center; gap: 15px;
     cursor: pointer; transition: all 0.2s; text-align: left;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
 }
-.mode-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.05); border-color: var(--primary); }
-.mode-btn .icon { font-size: 2rem; }
-.mode-btn strong { display: block; color: var(--dark); font-size: 1.2rem; margin-bottom: 4px; }
-.mode-btn small { color: #888; font-size: 0.95rem; }
+.mode-btn:active { background: #f5f5f5; transform: scale(0.98); }
+.mode-btn .icon { font-size: 1.8rem; }
+.mode-btn strong { display: block; color: var(--dark); font-size: 1.1rem; }
+.mode-btn small { color: #888; font-size: 0.9rem; }
 
 /* --- 7. QUIZ UI --- */
-.top-bar { padding: 20px; background: white; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 10; }
+.top-bar { padding: 15px 20px; background: white; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 10; }
 .timer-bar { height: 4px; width: 0%; background: var(--orange); position: absolute; bottom: 0; left: 0; transition: width 1s linear; }
-.stats { font-weight: 700; color: var(--dark); display: flex; justify-content: space-between; font-size: 1.1rem; }
+.stats { font-weight: 700; color: var(--dark); display: flex; justify-content: space-between; }
 
-.question-card { padding: 30px 20px; max-width: 900px; margin: 0 auto; width: 100%; }
-.tag { display: inline-block; background: var(--primary); color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
-h2 { font-size: 1.5rem; margin-top: 0; color: var(--dark); margin-bottom: 30px; line-height: 1.5; }
+.question-card { padding: 20px; width: 100%; max-width: 800px; margin: 0 auto; }
+.tag { display: inline-block; background: var(--primary); color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; }
+h2 { font-size: 1.3rem; margin-top: 0; color: var(--dark); margin-bottom: 25px; line-height: 1.4; }
 
-.options-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
-/* Sur PC, les réponses en 2 colonnes si possible */
-@media (min-width: 769px) { .options-grid { grid-template-columns: 1fr 1fr; } }
+.options-grid { display: flex; flex-direction: column; gap: 12px; }
+/* Sur PC, grille 2 colonnes pour les réponses */
+@media (min-width: 769px) { .options-grid { display: grid; grid-template-columns: 1fr 1fr; } }
 
 .opt-btn {
-    padding: 20px; border: 2px solid #e0e0e0;
-    background: white; border-radius: 12px;
-    font-size: 1.1rem; color: var(--text);
+    padding: 16px; border: 2px solid #e0e0e0;
+    background: white; border-radius: 10px;
+    font-size: 1rem; color: var(--text);
     text-align: left; cursor: pointer; transition: 0.2s; font-weight: 500;
 }
-.opt-btn:hover { background: #f8f9fa; border-color: #ccc; }
 .opt-btn.correct { background: #d4edda; border-color: var(--green); color: #155724; font-weight: bold; }
 .opt-btn.wrong { background: #f8d7da; border-color: var(--red); color: #721c24; }
 .opt-btn.disabled { pointer-events: none; opacity: 0.6; }
 
-/* Explication */
 .explanation {
-    display: none; margin-top: 30px; padding: 25px;
-    background: #f1f9ff; border-left: 5px solid var(--primary);
-    border-radius: 8px; font-size: 1.1rem; line-height: 1.6;
+    display: none; margin-top: 25px; padding: 20px;
+    background: #f1f9ff; border-left: 4px solid var(--primary);
+    border-radius: 8px; font-size: 1rem; line-height: 1.5;
 }
 #next-btn {
     width: 100%; background: var(--dark); color: white; border: none;
-    padding: 18px; border-radius: 12px; font-size: 1.2rem; font-weight: bold;
-    margin-top: 20px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    padding: 15px; border-radius: 10px; font-size: 1.1rem; font-weight: bold;
+    margin-top: 20px; cursor: pointer;
 }
-#next-btn:hover { background: #34495e; }
 
-/* --- 8. PAGE RÉVISIONS (Style amélioré) --- */
+/* --- 8. PAGE RÉVISIONS (Mobile First) --- */
+/* C'est ici qu'on règle ton problème d'affichage */
 .revision-container {
-    padding: 20px;
-    max-width: 100%; /* La grille gère la largeur */
+    padding: 15px;
+    width: 100%; /* Important sur mobile */
     margin: 0 auto;
+    /* Pas de display grid sur mobile par défaut */
+    display: block; 
 }
+
+/* Bouton Retour stylisé */
+.back-fixed {
+    display: table; margin: 0 auto 20px auto; 
+    background: var(--dark); color: white;
+    padding: 10px 25px; border-radius: 25px; text-decoration: none;
+    font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
 details {
-    background: white; margin-bottom: 20px;
-    border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    overflow: hidden; border: 1px solid #eee; border-left-width: 6px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: white; margin-bottom: 15px;
+    border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    overflow: hidden; border: 1px solid #eee; border-left-width: 5px;
 }
-details:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
-summary { padding: 20px; font-weight: 700; font-size: 1.2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: #fff; }
-summary:after { content: '+'; font-size: 1.5rem; color: #aaa; transition: 0.3s; }
-details[open] summary:after { transform: rotate(45deg); color: var(--dark); }
-.content { padding: 25px; font-size: 1.05rem; line-height: 1.8; color: #444; border-top: 1px solid #f0f0f0; }
+summary { padding: 15px; font-weight: 700; font-size: 1.1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+summary:after { content: '+'; font-size: 1.5rem; color: #aaa; }
+details[open] summary:after { transform: rotate(45deg); }
+.content { padding: 20px; font-size: 1rem; line-height: 1.6; color: #444; border-top: 1px solid #f0f0f0; }
 
-/* Typos fiches */
-h3 { color: var(--dark); border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; margin-top: 30px; font-size: 1.3rem; }
-.date-badge { background: var(--dark); color: white; padding: 4px 8px; border-radius: 6px; font-weight: bold; font-size: 0.9rem; margin-right: 8px; }
-.important { color: #d35400; background: rgba(211, 84, 0, 0.1); padding: 0 5px; border-radius: 4px; }
-.def-box { background: #f8f9fa; padding: 15px; border-left: 4px solid #bdc3c7; margin: 15px 0; font-style: italic; color: #555; }
-ul { margin-bottom: 20px; } li { margin-bottom: 10px; }
+/* Éléments internes des cours */
+h3 { color: var(--dark); border-bottom: 2px solid #f0f0f0; padding-bottom: 5px; margin-top: 25px; font-size: 1.1rem; }
+.date-badge { background: var(--dark); color: white; padding: 3px 6px; border-radius: 4px; font-weight: bold; font-size: 0.85rem; margin-right: 5px; display: inline-block; margin-bottom: 5px; }
+.important { color: #d35400; font-weight: bold; }
+.def-box { background: #f9f9f9; padding: 15px; border-left: 3px solid #ccc; margin: 15px 0; font-style: italic; font-size: 0.95rem; }
+ul { padding-left: 20px; margin-bottom: 15px; } li { margin-bottom: 8px; }
 
-/* Couleurs Thématiques Fiches */
+/* Couleurs Thématiques */
 .t-sante { border-left-color: #3498db; } .t-sante summary { color: #2980b9; }
 .t-handi { border-left-color: #9b59b6; } .t-handi summary { color: #8e44ad; }
 .t-rsa { border-left-color: #e67e22; } .t-rsa summary { color: #d35400; }
@@ -196,9 +206,11 @@ ul { margin-bottom: 20px; } li { margin-bottom: 10px; }
 .t-femmes { border-left-color: #e84393; } .t-femmes summary { color: #d63031; }
 .t-psy { border-left-color: #34495e; }
 
-/* --- 9. RESULTATS & LOADER --- */
-.result-content { text-align: center; padding-top: 10vh; }
-.final-score { font-size: 4rem; font-weight: 800; color: var(--primary); margin: 20px 0; }
-#loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--primary); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; transition: opacity 0.5s; }
-.spinner { width: 50px; height: 50px; border: 5px solid rgba(255,255,255,0.3); border-top: 5px solid white; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
+/* --- 9. ÉCRANS DE FIN & CHARGEMENT --- */
+.result-content { text-align: center; padding-top: 10vh; padding-left:20px; padding-right: 20px; }
+.final-score { font-size: 3.5rem; font-weight: 800; color: var(--primary); margin: 20px 0; }
+.restart-btn { background: var(--primary); color: white; border: none; padding: 15px 30px; border-radius: 30px; font-size: 1.1rem; cursor: pointer; width: 100%; max-width: 300px; margin-bottom: 10px; }
+
+#loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--primary); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; }
+.spinner { width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.3); border-top: 4px solid white; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
