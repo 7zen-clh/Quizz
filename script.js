@@ -106,7 +106,23 @@ const DB = [
     {c:"PSY", q:"CJC :", o:["Consultations Jeunes Consommateurs", "Centre Jeune", "Comité"], a:0, e:"Prévention précoce (Cannabis, écrans...)."}
 ];
 
-/* --- VARIABLES DU JEU --- */
+/* --- INITIALISATION AU CHARGEMENT --- */
+window.onload = function() {
+    // 1. Mise à jour du compteur de questions
+    document.getElementById('total-questions').innerText = DB.length;
+
+    // 2. Gestion du Loader (Faux temps de chargement pour l'effet "App")
+    setTimeout(() => {
+        const loader = document.getElementById('loader');
+        loader.style.opacity = '0';
+        setTimeout(() => {
+            loader.style.display = 'none';
+            showScreen('home-screen');
+        }, 500);
+    }, 1500); // Durée du chargement : 1.5 secondes
+};
+
+/* --- VARIABLES --- */
 let currentMode = 'classic';
 let questions = [];
 let currentIndex = 0;
@@ -114,15 +130,34 @@ let score = 0;
 let timer;
 let timeLeft = 15;
 
-/* --- GESTION DES ÉCRANS --- */
+/* --- NAVIGATION --- */
 function showScreen(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
 }
 
-/* --- LOGIQUE DU JEU --- */
+function toggleMenu() {
+    const menu = document.getElementById('side-menu');
+    const overlay = document.getElementById('menu-overlay');
+    
+    if (menu.classList.contains('open')) {
+        menu.classList.remove('open');
+        overlay.classList.remove('show');
+    } else {
+        menu.classList.add('open');
+        overlay.classList.add('show');
+    }
+}
 
-// Mélange un tableau (Fisher-Yates)
+function goToHome() {
+    // Fermer le menu si ouvert
+    const menu = document.getElementById('side-menu');
+    if (menu.classList.contains('open')) toggleMenu();
+    
+    showScreen('home-screen');
+}
+
+/* --- LOGIQUE JEU --- */
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -136,10 +171,9 @@ function startGame(mode) {
     score = 0;
     currentIndex = 0;
     
-    // On copie et mélange la base de données pour cette session
+    // Mélange des questions
     questions = shuffle([...DB]); 
     
-    // Configuration selon le mode
     document.getElementById('mode-badge').innerText = getModeName(mode);
     document.getElementById('timer-bar').style.width = '0%';
     
@@ -155,7 +189,6 @@ function getModeName(mode) {
 }
 
 function loadQuestion() {
-    // Vérification fin du jeu
     if (currentIndex >= questions.length) {
         endGame(true);
         return;
@@ -163,16 +196,14 @@ function loadQuestion() {
 
     const q = questions[currentIndex];
     
-    // Reset UI
     document.getElementById('category-tag').innerText = q.c;
     document.getElementById('question-text').innerText = `${currentIndex + 1}. ${q.q}`;
     document.getElementById('explanation-box').style.display = 'none';
     
-    // Gestion Options (Mélange aléatoire des réponses)
     const container = document.getElementById('options-container');
     container.innerHTML = '';
     
-    // On crée un tableau d'indices [0, 1, 2] qu'on mélange
+    // Mélange des options
     let indices = q.o.map((_, i) => i);
     shuffle(indices);
     
@@ -184,10 +215,8 @@ function loadQuestion() {
         container.appendChild(btn);
     });
 
-    // Score update
     document.getElementById('score-display').innerText = `Score: ${score}`;
 
-    // Gestion du Timer (Mode Contre-la-montre)
     if (currentMode === 'time-attack') {
         startTimer();
     }
@@ -195,12 +224,11 @@ function loadQuestion() {
 
 function startTimer() {
     clearInterval(timer);
-    timeLeft = 15; // 15 secondes
+    timeLeft = 15;
     const bar = document.getElementById('timer-bar');
     bar.style.width = '100%';
-    bar.style.transition = 'none'; // Reset instantané
+    bar.style.transition = 'none'; 
     
-    // Petit délai pour permettre l'animation CSS
     setTimeout(() => {
         bar.style.transition = 'width 15s linear';
         bar.style.width = '0%';
@@ -216,30 +244,23 @@ function startTimer() {
 }
 
 function timeOut() {
-    // Désactiver les boutons
     const btns = document.querySelectorAll('.opt-btn');
     btns.forEach(b => b.classList.add('disabled'));
     
-    // Afficher la réponse (Temps écoulé = Faux)
     const q = questions[currentIndex];
-    // Trouver le bouton avec la bonne réponse pour le montrer
     btns.forEach(b => {
         if(b.innerText === q.o[q.a]) b.classList.add('correct');
     });
 
-    // En mort subite ou contre la montre, c'est perdu ? 
-    // Choix : En Time Attack, temps écoulé = réponse fausse, on continue ou on arrête ?
-    // Pour être sympa, on continue mais sans point.
-    
     showExplanation();
 }
 
 function checkAnswer(btn, selectedIdx, correctIdx) {
-    clearInterval(timer); // Stop timer
-    document.getElementById('timer-bar').style.width = '0%'; // Reset visuel
+    clearInterval(timer);
+    document.getElementById('timer-bar').style.width = '0%';
     
     const btns = document.querySelectorAll('.opt-btn');
-    btns.forEach(b => b.classList.add('disabled')); // Bloquer clics
+    btns.forEach(b => b.classList.add('disabled'));
 
     const isCorrect = (selectedIdx === correctIdx);
 
@@ -248,15 +269,13 @@ function checkAnswer(btn, selectedIdx, correctIdx) {
         score++;
     } else {
         btn.classList.add('wrong');
-        // Montrer la bonne réponse
         const q = questions[currentIndex];
         btns.forEach(b => {
             if(b.innerText === q.o[q.a]) b.classList.add('correct');
         });
 
-        // MODE MORT SUBITE : Game Over direct
         if (currentMode === 'sudden-death') {
-            setTimeout(() => endGame(false), 1500); // Petit délai pour voir l'erreur
+            setTimeout(() => endGame(false), 1500);
             return;
         }
     }
@@ -267,16 +286,18 @@ function checkAnswer(btn, selectedIdx, correctIdx) {
 function showExplanation() {
     const q = questions[currentIndex];
     document.getElementById('explanation-text').innerText = q.e;
-    document.getElementById('explanation-box').style.display = 'block';
+    const explBox = document.getElementById('explanation-box');
+    explBox.style.display = 'block';
     
-    // Scroll auto vers l'explication si nécessaire sur petit écran
-    document.getElementById('explanation-box').scrollIntoView({ behavior: 'smooth', block: 'end' });
+    // Auto-scroll doux vers le bas pour voir l'explication sur mobile
+    setTimeout(() => {
+        explBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);
 }
 
 function nextQuestion() {
     currentIndex++;
     loadQuestion();
-    // Scroll haut
     document.querySelector('.app-container').scrollTo(0, 0);
 }
 
@@ -293,20 +314,21 @@ function endGame(completed) {
     if (currentMode === 'sudden-death' && !completed) {
         emoji.innerText = "💀";
         title.innerText = "Mort Subite !";
-        msg.innerText = "Tu as fait une erreur. C'est fatal !";
+        msg.innerText = "Dommage, une erreur fatale.";
     } else {
-        if (score / questions.length > 0.8) {
+        const ratio = score / (completed ? questions.length : currentIndex + 1);
+        if (ratio > 0.8) {
             emoji.innerText = "🏆";
             title.innerText = "Excellent !";
-            msg.innerText = "Tu maîtrises tes fiches sur le bout des doigts.";
-        } else if (score / questions.length > 0.5) {
+            msg.innerText = "Tu es prêt(e) pour l'examen.";
+        } else if (ratio > 0.5) {
             emoji.innerText = "👍";
             title.innerText = "Bien joué";
-            msg.innerText = "Encore quelques efforts sur les dates précises.";
+            msg.innerText = "Continue tes efforts.";
         } else {
             emoji.innerText = "📚";
             title.innerText = "Courage";
-            msg.innerText = "Relis tes fiches et recommence, ça va rentrer !";
+            msg.innerText = "Relis les fiches et recommence.";
         }
     }
 }

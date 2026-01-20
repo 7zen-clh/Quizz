@@ -3,17 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Révisions Sociales - Multi Modes</title>
+    <title>Révisions Sociales - App</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <div id="loader">
+        <div class="spinner"></div>
+        <p>Chargement des fiches...</p>
+    </div>
+
+    <div id="burger-btn" onclick="toggleMenu()">☰</div>
+    
+    <div id="side-menu">
+        <div class="menu-header">
+            <h3>Menu</h3>
+            <span class="close-btn" onclick="toggleMenu()">×</span>
+        </div>
+        <ul class="menu-links">
+            <li onclick="goToHome()">🏠 Accueil</li>
+            <li onclick="alert('Créé pour réviser les politiques sociales !')">ℹ️ À propos</li>
+            <li onclick="location.reload()">🔄 Recharger l'app</li>
+        </ul>
+        <div class="menu-footer">
+            Version 2.0
+        </div>
+    </div>
+    <div id="menu-overlay" onclick="toggleMenu()"></div>
+
     <div class="app-container">
         
-        <div id="home-screen" class="screen active">
+        <div id="home-screen" class="screen">
             <header>
-                <h1>Révisions Sociales</h1>
-                <p>Choisis ton mode de jeu</p>
+                <h1>🎓 Révisions Sociales</h1>
+                <p>Prêt à valider tes connaissances ?</p>
+                
+                <div class="db-info">
+                    <span class="badge-count">
+                        📚 Base de données : <strong id="total-questions">0</strong> questions
+                    </span>
+                </div>
             </header>
             
             <div class="menu-buttons">
@@ -54,10 +83,9 @@
 
             <div class="question-card">
                 <span id="category-tag" class="tag">Catégorie</span>
-                <h2 id="question-text">Texte de la question...</h2>
+                <h2 id="question-text">Question...</h2>
                 
-                <div id="options-container" class="options-grid">
-                    </div>
+                <div id="options-container" class="options-grid"></div>
 
                 <div id="explanation-box" class="explanation">
                     <strong>💡 Explication :</strong>
@@ -71,9 +99,9 @@
             <div class="result-content">
                 <div class="emoji" id="result-emoji">🏆</div>
                 <h2 id="result-title">Terminé !</h2>
-                <div class="final-score" id="final-score">10/10</div>
+                <div class="final-score" id="final-score">0/0</div>
                 <p id="result-msg">Bravo !</p>
-                <button onclick="location.reload()" class="restart-btn">🏠 Retour au Menu</button>
+                <button onclick="goToHome()" class="restart-btn">🏠 Retour au Menu</button>
             </div>
         </div>
 
