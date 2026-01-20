@@ -21,26 +21,26 @@
             <span class="close-btn" onclick="toggleMenu()">×</span>
         </div>
         <ul class="menu-links">
-            <li onclick="goToHome()">🏠 Accueil</li>
-            <li onclick="alert('Créé pour réviser les politiques sociales !')">ℹ️ À propos</li>
+            <li onclick="goToHome()">🏠 Accueil Quiz</li>
+            <li onclick="window.location.href='revisions.html'">📄 Fiches de Révision</li>
             <li onclick="location.reload()">🔄 Recharger l'app</li>
         </ul>
         <div class="menu-footer">
-            Version 2.0
+            Politiques Sociales v2.0
         </div>
     </div>
     <div id="menu-overlay" onclick="toggleMenu()"></div>
 
     <div class="app-container">
         
-        <div id="home-screen" class="screen">
+        <div id="home-screen" class="screen active">
             <header>
                 <h1>🎓 Révisions Sociales</h1>
                 <p>Prêt à valider tes connaissances ?</p>
                 
                 <div class="db-info">
                     <span class="badge-count">
-                        📚 Base de données : <strong id="total-questions">0</strong> questions
+                        📚 Base de données : <strong id="total-questions">...</strong> questions
                     </span>
                 </div>
             </header>
@@ -67,6 +67,14 @@
                     <div class="text">
                         <strong>Contre-la-Montre</strong>
                         <small>15 secondes par question.</small>
+                    </div>
+                </button>
+                
+                <button onclick="window.location.href='revisions.html'" class="mode-btn" style="border-color: #2c3e50;">
+                    <span class="icon">📝</span>
+                    <div class="text">
+                        <strong>Lire le Cours</strong>
+                        <small>Accéder aux fiches résumées.</small>
                     </div>
                 </button>
             </div>
@@ -101,7 +109,11 @@
                 <h2 id="result-title">Terminé !</h2>
                 <div class="final-score" id="final-score">0/0</div>
                 <p id="result-msg">Bravo !</p>
-                <button onclick="goToHome()" class="restart-btn">🏠 Retour au Menu</button>
+                
+                <div style="display:flex; flex-direction:column; gap:10px; margin-top:20px;">
+                    <button onclick="goToHome()" class="restart-btn">🏠 Retour au Menu</button>
+                    <button onclick="window.location.href='revisions.html'" class="restart-btn" style="background:#2c3e50;">📄 Voir les fiches</button>
+                </div>
             </div>
         </div>
 

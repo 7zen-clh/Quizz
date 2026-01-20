@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Fiches Complètes - Politiques Sociales</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* CSS SPÉCIFIQUE POUR FICHES DÉTAILLÉES */
+        .revision-container { padding: 15px; max-width: 900px; margin: 0 auto; padding-bottom: 100px; }
+        
+        details {
+            background: white;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+            border-left: 6px solid #ccc;
+        }
+
+        summary {
+            padding: 20px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+        }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '+'; font-size: 1.5rem; font-weight: bold; transition: 0.3s; }
+        details[open] summary::after { transform: rotate(45deg); }
+        details[open] summary { border-bottom: 1px solid #eee; background: #fcfcfc; }
+
+        .content { padding: 20px; font-size: 0.95rem; line-height: 1.6; color: #333; }
+
+        /* Styles de mise en forme "Fiche" */
+        h3 { 
+            color: #2c3e50; 
+            border-bottom: 2px solid #eee; 
+            padding-bottom: 5px; 
+            margin-top: 25px; 
+            font-size: 1.1rem;
+        }
+        h3:first-of-type { margin-top: 0; }
+
+        .date-badge {
+            display: inline-block;
+            background: #2c3e50; color: #fff;
+            padding: 2px 6px; border-radius: 4px;
+            font-weight: bold; font-size: 0.85rem;
+            margin-right: 5px;
+        }
+
+        .important { color: #d35400; font-weight: bold; }
+        .def-box { background: #eef2f3; padding: 10px; border-left: 4px solid #95a5a6; margin: 10px 0; font-style: italic; }
+        
+        ul { padding-left: 20px; }
+        li { margin-bottom: 8px; }
+
+        /* Couleurs Thématiques */
+        .t-sante { border-color: #3498db; } .t-sante summary { color: #2980b9; }
+        .t-handi { border-color: #9b59b6; } .t-handi summary { color: #8e44ad; }
+        .t-rsa { border-color: #e67e22; } .t-rsa summary { color: #d35400; }
+        .t-enfance { border-color: #2ecc71; } .t-enfance summary { color: #27ae60; }
+        .t-senior { border-color: #f1c40f; } .t-senior summary { color: #f39c12; }
+        .t-psy { border-color: #34495e; } .t-psy summary { color: #2c3e50; }
+        .t-femmes { border-color: #e84393; } .t-femmes summary { color: #d63031; }
+
+        .back-link { 
+            display: block; text-align: center; margin-bottom: 20px; 
+            background: #2c3e50; color: white; padding: 12px; 
+            border-radius: 8px; text-decoration: none; font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<header style="margin-top:0; padding-top:20px;">
+    <h1>📚 Fiches Complètes</h1>
+    <p>Contenu détaillé extrait de tes cours</p>
+</header>
+
+<div class="revision-container">
+    <a href="index.html" class="back-link">⬅ Retour au Quiz</a>
+
+    <details class="t-sante">
+        <summary>🏥 Accès aux Soins (Histoire & Dispositifs)</summary>
+        <div class="content">
+            <h3>📜 Historique : L'État Acteur</h3>
+            <ul>
+                <li><span class="date-badge">Fin XIXe</span> <strong>Loi 15/07/1893</strong> : Assistance Médicale Gratuite (AMG) pour les plus démunis.</li>
+                <li><span class="date-badge">1898</span> Loi sur les accidents du travail (reconnaissance du risque pro).</li>
+                <li><span class="date-badge">1945</span> <strong>Ordonnance du 4 octobre</strong> : Création de la <span class="important">Sécurité Sociale</span>. Maintien de l'aide médicale gratuite.</li>
+            </ul>
+
+            <h3>🌍 La Généralisation (Couverture Universelle)</h3>
+            <ul>
+                <li><span class="date-badge">1999</span> <strong>Loi CMU</strong> (Couverture Maladie Universelle).
+                    <ul>
+                        <li>CMU de base : sur critère de résidence.</li>
+                        <li>CMU-C : Complémentaire gratuite (panier de soins).</li>
+                    </ul>
+                </li>
+                <li><span class="date-badge">2016</span> <strong>PUMA</strong> (Protection Universelle Maladie). Droit aux soins lié à la résidence stable (3 mois) et régulière, non plus au statut professionnel. Individualisation des droits (fin des ayants-droit majeurs).</li>
+                <li><span class="date-badge">2019</span> <strong>CSS</strong> (Complémentaire Santé Solidaire). Fusionne CMU-C et ACS. Gratuite ou participative (< 1€/j) selon ressources.</li>
+            </ul>
+
+            <h3>🚑 Dispositifs Spécifiques</h3>
+            <ul>
+                <li><strong>AME (Aide Médicale d'État) - Loi 1999</strong> : Pour étrangers en situation irrégulière, résidant depuis +3 mois. Panier de soins classique.</li>
+                <li><strong>PASS</strong> (Loi 1998) : Permanences d'Accès aux Soins de Santé (hôpital) pour publics précaires sans couverture.</li>
+                <li><strong>PRAPS</strong> : Programmes Régionaux d'Accès à la Prévention et aux Soins (pour publics précaires).</li>
+            </ul>
+
+            <h3>🏛️ Acteurs</h3>
+            <p><strong>État</strong> (Lois, financement AME), <strong>ARS</strong> (Politique régionale), <strong>CPAM</strong> (Droits), <strong>CCAS</strong> (Domiciliation), <strong>LHSS/LAM</strong> (Lits Halte Soins Santé / Accueil Médicalisé).</p>
+        </div>
+    </details>
+
+    <details class="t-psy">
+        <summary>💊 Toxicomanie & Addictions</summary>
+        <div class="content">
+            <div class="def-box">
+                <strong>Addiction :</strong> Impossibilité répétée de contrôler un comportement et la poursuite de ce comportement en dépit de la connaissance des conséquences négatives.
+            </div>
+
+            <h3>⚖️ Cadre Législatif : Entre Répression et Soin</h3>
+            <ul>
+                <li><span class="date-badge">Loi 31/12/1970</span> : Loi majeure.
+                    <ul>
+                        <li>Pénalisation de l'usage.</li>
+                        <li>Alternative de soins (injonction thérapeutique).</li>
+                        <li>Répression du trafic.</li>
+                        <li><i>Constat : mauvaise articulation soin/répression.</i></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>🔄 Le Tournant des Années 80/90 : La RdR</h3>
+            <p>Face à l'épidémie de <strong>SIDA</strong>, changement de paradigme vers la <strong>Réduction des Risques (RdR)</strong>.</p>
+            <ul>
+                <li><span class="date-badge">1987</span> <strong>Décret Barzach</strong> : Vente libre des seringues en pharmacie.</li>
+                <li><span class="date-badge">1995</span> Plan de lutte : Généralisation des TSO (Traitements de Substitution aux Opiacés : Méthadone, Subutex).</li>
+                <li><span class="date-badge">2016</span> Loi Santé : Création des SCMR ("Salles de shoot").</li>
+            </ul>
+
+            <h3>🏥 Structures</h3>
+            <ul>
+                <li><strong>CSAPA</strong> : Centre de Soins, d'Accompagnement et de Prévention en Addictologie. (Approche soin/sevrage).</li>
+                <li><strong>CAARUD</strong> : Centre d'Accueil et d'Accompagnement à la Réduction des Risques. (Accueil inconditionnel, même si conso active, distribution matériel).</li>
+                <li><strong>CJC</strong> : Consultations Jeunes Consommateurs.</li>
+            </ul>
+        </div>
+    </details>
+
+    <details class="t-rsa">
+        <summary>📉 RSA & Insertion</summary>
+        <div class="content">
+            <h3>📜 Genèse</h3>
+            <ul>
+                <li>Crises économiques (Chocs pétroliers 73/79) ➔ Augmentation chômage ("Nouveaux pauvres").</li>
+                <li><span class="date-badge">1988</span> <strong>Loi RMI</strong> (Rocard). Droit au revenu minimal + Droit insertion sociale (Contrat). Pilote : État/Département.</li>
+                <li><span class="date-badge">1998</span> Loi lutte contre les exclusions (Accès aux droits fondamentaux).</li>
+            </ul>
+
+            <h3>🚀 Le RSA (Loi 1er déc. 2008)</h3>
+            <ul>
+                <li>Remplace RMI et API (Allocation Parent Isolé).</li>
+                <li><strong>Objectifs</strong> : Garantir revenu min + Inciter reprise emploi (éviter "trappe à inactivité").</li>
+                <li><strong>Gestion</strong> : Conseil Départemental (Décision/Financement) + CAF/MSA (Versement).</li>
+                <li><strong>Dispositif</strong> : "RSA Socle" + "RSA Activité" (remplacé en 2016 par <span class="important">Prime d'Activité</span>).</li>
+            </ul>
+
+            <h3>📅 Évolutions Récentes</h3>
+            <ul>
+                <li><span class="date-badge">2010</span> RSA Jeune (-25 ans si 2 ans d'activité).</li>
+                <li><span class="date-badge">2024</span> <strong>France Travail</strong> (Loi Plein Emploi) : Inscription auto RSA à France Travail, contrat d'engagement unifié, objectif 15h activité/semaine.</li>
+            </ul>
+        </div>
+    </details>
+
+    <details class="t-psy">
+        <summary>🧠 Santé Mentale & Psychiatrie</summary>
+        <div class="content">
+            <h3>📜 Évolution Historique</h3>
+            <ul>
+                <li><span class="date-badge">1838</span> <strong>Loi des Aliénés</strong> : 3 objectifs (Protéger la société, l'ordre public, et soigner). Système asilaire fermé.</li>
+                <li><span class="date-badge">1960</span> Circulaire : <strong>Sectorisation</strong>. "Soigner hors les murs". Continuité des soins proche du domicile. Désinstitutionnalisation.</li>
+            </ul>
+
+            <h3>⚖️ Lois 2011 & 2013 (Soins Sans Consentement)</h3>
+            <p>La loi du 5 juillet 2011 (réformée 2013) encadre strictement les <strong>SSC</strong> :</p>
+            <ul>
+                <li><strong>SPDT</strong> : Soins Psychiatriques à la Demande d'un Tiers (Famille/Proche).</li>
+                <li><strong>SPDRE</strong> : Soins Psychiatriques sur Décision du Représentant de l'État (Préfet) si danger ordre public.</li>
+                <li><span class="important">Contrôle JLD</span> : Le Juge des Libertés et de la Détention doit statuer obligatoirement avant <strong>12 jours</strong> (hospitalisation complète).</li>
+                <li>Période d'observation : 72h max.</li>
+            </ul>
+
+            <h3>🏥 Structures Ambulatoires</h3>
+            <ul>
+                <li><strong>CMP</strong> (Centre Médico-Psychologique) : Pivot de l'offre de soins.</li>
+                <li>CATTP, Hôpitaux de jour, GEM (Groupe d'Entraide Mutuelle).</li>
+            </ul>
+        </div>
+    </details>
+
+    <details class="t-handi">
+        <summary>♿ Handicap</summary>
+        <div class="content">
+            <h3>📜 Trois Lois Fondatrices</h3>
+            <ol>
+                <li><span class="date-badge">30 juin 1975</span> (Loi d'orientation) :
+                    <ul>
+                        <li>Droit au travail, éducation, soins.</li>
+                        <li>Création COTOREP (adultes) / CDES (enfants).</li>
+                        <li>Création AAH.</li>
+                    </ul>
+                </li>
+                <li><span class="date-badge">10 juillet 1987</span> : Obligation d'emploi.
+                    <ul>
+                        <li>Quota de <strong>6%</strong> pour entreprises +20 salariés.</li>
+                        <li>Création AGEFIPH (fonds privé) / FIPHFP (public).</li>
+                    </ul>
+                </li>
+                <li><span class="date-badge">11 février 2005</span> (Loi "Handicap") :
+                    <ul>
+                        <li>Principes : <strong>Accessibilité</strong>, <strong>Compensation</strong>, Citoyenneté.</li>
+                        <li>Création <strong>MDPH</strong> (Guichet unique) et CDAPH (Commission décision).</li>
+                        <li>Création <strong>PCH</strong> (Prestation Compensation Handicap).</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3>💼 Emploi & Structures</h3>
+            <ul>
+                <li><strong>Milieu Ordinaire</strong> : Entreprise classique (avec RQTH).</li>
+                <li><strong>Entreprise Adaptée (EA)</strong> : Salariés de droit commun (Code travail), mais mission sociale.</li>
+                <li><strong>ESAT</strong> (Étab. Service Aide par Travail) : Milieu protégé. Statut d'usager (pas salarié), contrat de soutien.</li>
+            </ul>
+        </div>
+    </details>
+
+    <details class="t-femmes">
+        <summary>🚫 Violences faites aux femmes</summary>
+        <div class="content">
+            <h3>📜 Prise de conscience</h3>
+            <ul>
+                <li><span class="date-badge">2000</span> Enquête <strong>ENVEFF</strong> (chiffres chocs).</li>
+                <li>Plans triennaux de lutte.</li>
+            </ul>
+
+            <h3>⚖️ Lois Clés</h3>
+            <ul>
+                <li><span class="date-badge">9 juillet 2010</span> : Création de l'<strong>Ordonnance de Protection</strong> (délivrée par JAF en urgence). Création délit harcèlement au sein du couple.</li>
+                <li><span class="date-badge">6 août 2012</span> : Harcèlement sexuel (définition élargie).</li>
+                <li><span class="date-badge">4 août 2014</span> : Égalité réelle H/F. Généralisation du TGD (Téléphone Grave Danger).</li>
+                <li><span class="date-badge">13 avril 2016</span> : Système prostitutionnel. <strong>Pénalisation du client</strong> (achat d'acte sexuel) + Abrogation délit racolage + Parcours de sortie.</li>
+                <li><span class="date-badge">2020</span> : Suspension autorité parentale en cas de crime conjugal.</li>
+            </ul>
+
+            <h3>🛡️ Acteurs</h3>
+            <p><strong>3919</strong> (Écoute), Ernestine (Assoc), JAF (Juge Affaires Familiales), Intervenants Sociaux en Gendarmerie (ISG).</p>
+        </div>
+    </details>
+
+    <details class="t-senior">
+        <summary>👵 Personnes Âgées</summary>
+        <div class="content">
+            <h3>📜 Historique</h3>
+            <ul>
+                <li><span class="date-badge">1962</span> <strong>Rapport Laroque</strong> : Politique vieillesse moderne (priorité maintien domicile).</li>
+                <li><span class="date-badge">2001</span> <strong>APA</strong> (Allocation Personnalisée Autonomie). Remplace la PSD. Universelle (pas de condition de ressource pour l'accès).</li>
+                <li><span class="date-badge">2004</span> Loi solidarité (Canicule 2003) ➔ Création CNSA (Caisse nationale) + Journée de solidarité.</li>
+                <li><span class="date-badge">2015</span> Loi <strong>ASV</strong> (Adaptation Société Vieillissement). Revalorisation APA, droit au répit (aidants).</li>
+                <li><span class="date-badge">2024</span> Loi "Bien Vieillir".</li>
+            </ul>
+
+            <h3>🛠️ Outils & Structures</h3>
+            <ul>
+                <li><strong>Grille AGGIR</strong> : Évaluation dépendance. GIR 1 (très dépendant) à GIR 6. APA finance GIR 1 à 4.</li>
+                <li><strong>EHPAD</strong> : Établissement médicalisé (tarifs : soin, dépendance, hébergement).</li>
+                <li><strong>Obligation Alimentaire</strong> : Aide des enfants pour payer l'hébergement (Code Civil).</li>
+                <li><strong>ASPA</strong> : Minimum vieillesse (récupérable sur succession > 39k€ ou 100k€ selon cas).</li>
+            </ul>
+        </div>
+    </details>
+
+    <details class="t-enfance">
+        <summary>🧸 Protection de l'Enfance</summary>
+        <div class="content">
+            <h3>📜 Lois</h3>
+            <ul>
+                <li><span class="date-badge">1945</span> Ordonnance : Création <strong>PMI</strong>.</li>
+                <li><span class="date-badge">2007</span> Réforme : Priorité <strong>prévention</strong>. Rôle pivot du Président Conseil Dept. Distinction IP / Signalement. Diversification modes accueil.</li>
+                <li><span class="date-badge">2016</span> "Meilleur intérêt de l'enfant". Sécurisation parcours (PPE). Création CNPE.</li>
+                <li><span class="date-badge">2022</span> <strong>Loi Taquet</strong>. Interdiction hôtel, fin séparations fratries, accompagnement Jeunes Majeurs (fin sorties sèches).</li>
+            </ul>
+
+            <h3>🚨 Procédure Alerte</h3>
+            <ul>
+                <li><strong>IP (Information Préoccupante)</strong> ➔ Transmise à la <strong>CRIP</strong> (Département). Évaluation pluridisciplinaire.</li>
+                <li><strong>Signalement</strong> ➔ Transmis au <strong>Procureur</strong> (Judiciaire) si danger grave/immédiat ou échec aide administrative.</li>
+            </ul>
+
+            <h3>🛡️ Mesures</h3>
+            <ul>
+                <li>Administrative (Accord parents) : AED (Action Éducative Domicile).</li>
+                <li>Judiciaire (Imposé par Juge Enfants) : AEMO (Milieu Ouvert), Placement (OPP).</li>
+            </ul>
+        </div>
+    </details>
+    
+    <br>
+    <button onclick="window.print()" style="width:100%; padding:15px; background:#eee; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">🖨️ Sauvegarder (PDF)</button>
+
+</div>
+
+</body>
+</html>
